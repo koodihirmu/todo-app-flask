@@ -1,4 +1,24 @@
 {% extends 'main.html' %}
+
 {% block title %}
 Todo App
 {% endblock title %}
+
+{% block import %}
+<script src="{{url_for('static', filename='js/todo.js')}}"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='css/todo.css')}}">
+{% endblock import %}
+
+{% block content %}
+<div>
+	<form action="/add" method="post">
+		<input type="text" name="todo-title" placeholder="todo title...">
+		<input type="submit" name="Submit" value="Submit">
+	</form>
+	<ul id="todo-list">
+		{% for todo in todo_list %}
+		<li id="{{todo.id}}">{{todo.name}}<button onclick="deleteRequest({'id': '{{todo.id}}'})">DELETE</button></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock content %}
