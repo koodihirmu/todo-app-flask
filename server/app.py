@@ -1,14 +1,6 @@
 import sqlite3
 
-from flask import (
-    Flask,
-    Response,
-    make_response,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Flask, redirect, render_template, request, url_for
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -37,6 +29,13 @@ def todoRoute():
     return render_template("todo.html", todo_list=todo_list)
 
 
+@app.route("/update", methods=["PUT"])
+def update():
+    if request.method == "PUT":
+        print("PUTTING")
+    return redirect(url_for("todoRoute"), code=201)
+
+
 @app.route("/delete", methods=["DELETE"])
 def delete():
     rq = request.get_json()
@@ -56,3 +55,7 @@ def add():
 @app.errorhandler(404)
 def notFound(error):
     return render_template("error.html", value=error), 404
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
