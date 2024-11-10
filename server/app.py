@@ -3,8 +3,12 @@ import sqlite3
 from flask import Flask, redirect, render_template, request, url_for
 from flask_cors import CORS
 
+import server.config as config
+
 app = Flask(__name__)
 CORS(app)
+
+print(config.SECRET_KEY)
 
 
 def dict_factory(cursor, row):
