@@ -32,6 +32,10 @@ def todoRoute():
 @app.route("/update", methods=["PUT"])
 def update():
     if request.method == "PUT":
+        req = request.get_json()
+        cursor.execute(
+            "UPDATE todo SET completed = NOT completed WHERE rowid = ?", [req["id"]]
+        )
         print("PUTTING")
     return redirect(url_for("todoRoute"), code=201)
 

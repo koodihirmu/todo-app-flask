@@ -17,8 +17,10 @@ Todo App
 	</form>
 	<ul id="todo-list">
 		{% for todo in todo_list %}
-		<li id="{{todo.id}}">{{todo.name}}
+		<li id="{{todo.id}}">
+			<p {% if todo.completed %}class="completed" {% endif %}>{{todo.name}}</p>
 			<button onclick="deleteRequest({'id': '{{todo.id}}'})">DELETE</button>
+			<button onclick="updateRequest({'id': '{{todo.id}}'})">COMPLETE</button>
 		</li>
 		{% endfor %}
 	</ul>
