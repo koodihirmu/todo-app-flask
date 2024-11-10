@@ -8,9 +8,11 @@ import server.config as config
 app = Flask(__name__)
 CORS(app)
 
+# demonstrating how getting keys with .env works basically
 print(config.SECRET_KEY)
 
 
+# factory for sqlite for making the rows fetch as dictionaries
 def dict_factory(cursor, row):
     fields = [column[0] for column in cursor.description]
     return {key: value for key, value in zip(fields, row)}
