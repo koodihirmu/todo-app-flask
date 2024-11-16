@@ -5,13 +5,13 @@ Todo App
 {% endblock title %}
 
 {% block import %}
-<script src="{{url_for('static', filename='js/todo.js')}}"></script>
+<script src="{{url_for('static', filename='js/todo.js')}}" defer></script>
 <link rel="stylesheet" href="{{url_for('static', filename='css/todo.css')}}">
 {% endblock import %}
 
 {% block content %}
 <div>
-	<form action="/add" method="post">
+	<form method="post">
 		<input type="text" name="todo-title" placeholder="todo title...">
 		<input type="submit" name="Submit" value="Submit">
 	</form>
@@ -19,8 +19,8 @@ Todo App
 		{% for todo in todo_list %}
 		<li id="{{todo.id}}">
 			<p {% if todo.completed %}class="completed" {% endif %}>{{todo.name}}</p>
-			<button onclick="deleteRequest({'id': '{{todo.id}}'})">DELETE</button>
-			<button onclick="updateRequest({'id': '{{todo.id}}'})">COMPLETE</button>
+			<button id="delete_item">DELETE</button>
+			<button id="complete_item">COMPLETE</button>
 		</li>
 		{% endfor %}
 	</ul>

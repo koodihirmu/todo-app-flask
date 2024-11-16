@@ -1,6 +1,6 @@
 import sqlite3
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 from flask_cors import CORS
 
 import server.config as config
@@ -55,11 +55,12 @@ def delete():
 
 @app.route("/add", methods=["POST"])
 def add():
-    rq = request.form
+    rq = request.get_json()
     cursor.execute(
         "INSERT INTO todo (name, completed) VALUES (?, false)", [rq["todo-title"]]
     )
-    return redirect(url_for("todoRoute"))
+    json = jsonify({"id": cursor.lastrowid})
+    return (json, 201)
 
 
 @app.errorhandler(404)
